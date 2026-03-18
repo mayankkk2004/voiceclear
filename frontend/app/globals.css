@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply box-border;
+}
+
+:root {
+  --ink: #1f2228;
+  --paper: #f8f4ef;
+  --coral: #ef5f52;
+  --sage: #3e7466;
+  --sky: #2d7fb8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f8f4ef;
+    --paper: #171a20;
+  }
+}
+
+body {
+  @apply text-ink;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(45, 127, 184, 0.2), transparent 32%),
+    radial-gradient(circle at 85% 0%, rgba(239, 95, 82, 0.2), transparent 30%),
+    linear-gradient(160deg, #f7eee5 0%, #f8f4ef 45%, #eef5f8 100%);
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), var(--font-body), sans-serif;
+}
+
+::selection {
+  @apply bg-coral text-paper;
+}
+
+.app-shell {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: clip;
+}
+
+.ambient-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ambient-layer::before,
+.ambient-layer::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(60px);
+  opacity: 0.35;
+  animation: drift 14s ease-in-out infinite;
+}
+
+.ambient-layer::before {
+  width: 280px;
+  height: 280px;
+  left: 8%;
+  top: 16%;
+  background: #4faad8;
+}
+
+.ambient-layer::after {
+  width: 340px;
+  height: 340px;
+  right: 4%;
+  bottom: 8%;
+  background: #f0846f;
+  animation-delay: -6s;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -25px) scale(1.06);
+  }
+}
