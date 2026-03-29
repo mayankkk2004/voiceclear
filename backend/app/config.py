@@ -17,6 +17,8 @@ class Config:
         days=int(os.getenv("JWT_ACCESS_TOKEN_EXPIRES_DAYS", "7"))
     )
 
+    # Flask-SQLAlchemy 3+ resolves relative SQLite paths from app.instance_path,
+    # so use just the filename (without "instance/" prefix).
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL", "sqlite:///speech_to_text.db"
     ).replace("postgres://", "postgresql://", 1)
