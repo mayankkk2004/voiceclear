@@ -1,18 +1,6 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Syne } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
-
-const bodyFont = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-body",
-});
-
-const headingFont = Syne({
-  subsets: ["latin"],
-  variable: "--font-heading",
-  weight: ["600", "700", "800"],
-});
 
 export const metadata: Metadata = {
   title: "VoiceScribe - Speech to Text",
@@ -26,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${bodyFont.variable} ${headingFont.variable}`}>
+      <body>
         <div className="app-shell">
           <div className="ambient-layer" />
           <Navbar />

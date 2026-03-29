@@ -17,7 +17,8 @@ export function Navbar() {
 
   return (
     <header className="mx-auto mb-8 mt-4 flex w-full max-w-6xl items-center justify-between rounded-2xl border border-white/40 bg-white/75 px-4 py-3 shadow-lg backdrop-blur-xl animate-rise">
-      <Link href="/" className="text-lg font-bold tracking-tight text-ink [font-family:var(--font-heading)] sm:text-xl">
+      <Link href="/" className="text-lg font-bold tracking-tight text-ink sm:text-xl"
+        style={{ fontFamily: "'Syne', system-ui, sans-serif" }}>
         VoiceScribe
       </Link>
 

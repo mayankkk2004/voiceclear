@@ -1,30 +1,20 @@
 import os
 from flask import Flask, jsonify
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager
-from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from sqlalchemy import text
 
 # Load environment variables
 load_dotenv()
 
-# Initialize extensions
-db = SQLAlchemy()
-jwt = JWTManager()
+from .config import Config
+from .extensions import db, jwt
+
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    
-    # Basic configuration
-    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'super-secret-key-change-this')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///backend/instance/speech_to_text.db')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['MAX_AUDIO_MB'] = int(os.getenv('MAX_AUDIO_MB', '25'))
-    
-    # Frontend origins for CORS
-    app.config['FRONTEND_ORIGINS'] = os.getenv('FRONTEND_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000').split(',')
-    
+    app.config.from_object(Config)
+
     # Configure CORS
     CORS(
         app,
@@ -32,22 +22,18 @@ def create_app() -> Flask:
         supports_credentials=True,
         allow_headers=["Content-Type", "Authorization", "X-Requested-With"]
     )
-    
+
     # Initialize extensions with app
     db.init_app(app)
     jwt.init_app(app)
-    
+
     # Import and register blueprints
-    try:
-        from .auth import auth_bp
-        from .transcripts import transcript_bp
-        
-        app.register_blueprint(auth_bp)
-        app.register_blueprint(transcript_bp)
-    except ImportError as e:
-        print(f"Warning: Could not import blueprints: {e}")
-        print("Make sure auth.py and transcripts.py exist in the app directory")
-    
+    from .auth import auth_bp
+    from .transcripts import transcript_bp
+
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(transcript_bp)
+
     # Create database tables
     with app.app_context():
         try:

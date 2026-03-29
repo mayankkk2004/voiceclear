@@ -27,7 +27,7 @@ body {
     radial-gradient(circle at 15% 10%, rgba(45, 127, 184, 0.2), transparent 32%),
     radial-gradient(circle at 85% 0%, rgba(239, 95, 82, 0.2), transparent 30%),
     linear-gradient(160deg, #f7eee5 0%, #f8f4ef 45%, #eef5f8 100%);
-  font-family: var(--font-body), "Segoe UI", sans-serif;
+  font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
   min-height: 100vh;
 }
 
@@ -37,7 +37,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading), var(--font-body), sans-serif;
+  font-family: "Syne", "Plus Jakarta Sans", system-ui, sans-serif;
 }
 
 ::selection {
